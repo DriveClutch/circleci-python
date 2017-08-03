@@ -90,7 +90,7 @@ Branch: $CIRCLE_BRANCH
 DOREMOTE: $DOREMOTE
 "
 
-if [[ $DORREMOTE == true ]]; then
+if $DORREMOTE; then
     # Login to the ECR repo
     eval $(aws ecr get-login --no-include-email)
 fi
