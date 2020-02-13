@@ -28,9 +28,21 @@ IMAGE_ID=$2
 REPO_NAME=$3
 API_KEY=$4
 
+generate_post_data()
+{
+  cat <<EOF
+{
+  "imageId": "$IMAGE_ID",
+  "target": "$REPO_NAME"
+}
+EOF
+}
+
 if [[ $REPO_BRANCH == "develop" ]]
 then
-    echo "sending webhook..."
     WEBHOOK_URL="https://api.dev1.clutchtech.io/canary-service/webhook"
-    curl -f -X -POST -H "Content-Type: application/json" -H "X-Github-Webhook-API-Key: $API_KEY" --data "{ \"target\": \"$REPO_NAME\", \"imageId\": \"$IMAGE_ID\" }" $WEBHOOK_URL || echo "curl call failed"
+    curl --location --request POST $WEBHOOK_URL \
+      --header 'Content-Type: application/json' \
+      --header "X-Github-Webhook-API-Key: $API_KEY" \
+      --data "$(generate_post_data)"
 fi
