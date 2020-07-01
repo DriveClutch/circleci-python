@@ -22,13 +22,13 @@ RUN apt-get update \
     && helm plugin install https://github.com/nouney/helm-gcs \
 	&& rm -rf /tmp/docker /tmp/docker.tgz linux-amd64 \
 	&& pip install --upgrade awscli \
-    && add-apt-repository ppa:duggan/bats
+    && add-apt-repository ppa:duggan/bats \
     && echo "deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list \
     && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
     && apt-get update \
     && apt-get install -y google-cloud-sdk kubectl \
 	&& pip install nose \
     && apt-get install -y shellcheck \
-    && apt-get install -y bats
+    && apt-get install bats
 
 COPY tools/* /tools/
