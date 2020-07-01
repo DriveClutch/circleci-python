@@ -26,6 +26,8 @@ RUN apt-get update \
     && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
     && apt-get update \
     && apt-get install -y google-cloud-sdk kubectl \
-	&& pip install nose
+	&& pip install nose \
+    && apt-get install -y shellcheck \
+    && apt-get install bats
 
 COPY tools/* /tools/
