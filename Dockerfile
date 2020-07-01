@@ -1,4 +1,4 @@
-FROM python:3.5.3
+FROM python:3.5-stretch
 
 RUN apt-get update \
     && apt-get install -y \
@@ -26,6 +26,7 @@ RUN apt-get update \
     && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
     && apt-get update \
     && apt-get install -y google-cloud-sdk kubectl \
-	&& pip install nose
+	&& pip install nose \
+    && apt-get install -y shellcheck bats
 
 COPY tools/* /tools/
