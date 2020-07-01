@@ -30,6 +30,6 @@ RUN apt-get update \
     && apt-get install -y google-cloud-sdk kubectl \
 	&& pip install nose \
     && apt-get install -y shellcheck \
-    && apt-get install bats
+    && apt-get install -y bats
 
 COPY tools/* /tools/
