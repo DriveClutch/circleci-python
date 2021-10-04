@@ -4,8 +4,21 @@
 #if [[ -f ".circleci/debuglog" ]]; then
 #	set -x
 #fi
+
 WORKINGDIR="${CIRCLE_WORKING_DIRECTORY}"
 REPONAME="${CIRCLE_PROJECT_REPONAME}"
+
+if [[ -z "$WORKINGDIR" ]]
+then
+      echo "\$CIRCLE_CIRCLE_WORKING_DIRECTORY is empty"
+      exit 1
+fi
+
+if [[ -z "$REPONAME" ]]
+then
+      echo "\$CIRCLE_PROJECT_REPONAME is empty"
+      exit 1
+fi
 
 mkdir -p /tmp/archives
 export TEMP_DIR="/tmp/archives"
@@ -25,7 +38,6 @@ echo "TEMP_DIR: $TEMP_DIR"
 echo "ARTIFACT_ZIP_PATH: $ARTIFACT_ZIP_PATH"
 echo "WORKINGDIR: $WORKINGDIR"
 
-exit 1
 
 
 
