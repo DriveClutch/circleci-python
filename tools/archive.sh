@@ -31,10 +31,12 @@ print "$FILES" > "$REPONAME.txt"
 tar czf "$REPONAME.tar.gz" -T "$REPONAME.txt"
 rm -f "$REPONAME.txt"
 mv "$REPONAME.tar.gz" "$TEMP_DIR"
-export ARTIFACT_ZIP_PATH="$TEMP_DIR/$REPONAME.tar.gz"
+export ARTIFACT="$REPONAME.tar.gz"
+export ARTIFACT_ZIP_PATH="$TEMP_DIR/$ARTIFACT"
 tar -tf "$ARTIFACT_ZIP_PATH"
 
 echo "TEMP_DIR: $TEMP_DIR"
+echo "ARTIFACT: $ARTIFACT"
 echo "ARTIFACT_ZIP_PATH: $ARTIFACT_ZIP_PATH"
 echo "WORKINGDIR: $WORKINGDIR"
 
