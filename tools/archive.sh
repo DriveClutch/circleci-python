@@ -20,26 +20,17 @@ then
       exit 1
 fi
 
-mkdir -p /tmp/archives;
+mkdir -p /tmp/archives &&
+cd "$WORKINGDIR" || echo "no circle_working_directory defined" &&
+print "$(find . \( -name "*.py" -o -name "*.html" -o -name "*.htm" -o -name "Pipfile.lock" \))" > "$REPONAME.txt" &&
+tar czf "$REPONAME.tar.gz" -T "$REPONAME.txt" &&
+rm -f "$REPONAME.txt" &&
+mv "$REPONAME.tar.gz" /tmp/archives/
+exit 1
 
-cd "$WORKINGDIR" || echo "no circle_working_directory defined";
-#shopt -s nullglob
-FILES=$(find . \( -name "*.py" -o -name "*.html" -o -name "*.htm" -o -name "Pipfile.lock" \));
-export FILES;
+export ARTIFACT="$REPONAME.tar.gz"
+export ARTIFACT_ZIP_PATH="/tmp/archives/$ARTIFACT"
 
-print "$FILES" > "$REPONAME.txt";
-tar czf "$REPONAME.tar.gz" -T "$REPONAME.txt";
-rm -f "$REPONAME.txt";
-mv "$REPONAME.tar.gz" /tmp/archives/;
-
-ARTIFACT="$REPONAME.tar.gz"
-ARTIFACT_ZIP_PATH="/tmp/archives/$ARTIFACT"
-
-
-echo "TEMP_DIR: $TEMP_DIR"
-echo "ARTIFACT: $ARTIFACT"
-echo "ARTIFACT_ZIP_PATH: $ARTIFACT_ZIP_PATH"
-echo "WORKING_DIR: $WORKINGDIR"
 
 
 
