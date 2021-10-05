@@ -1,9 +1,5 @@
 #!/bin/bash -e
 
-if [[ -f ".circleci/debuglog" ]]; then
-	set -x
-fi
-
 mkdir -p /tmp/archives
 
 cd "${CIRCLE_WORKING_DIRECTORY}" || echo "no circle_working_directory defined"
