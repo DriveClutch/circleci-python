@@ -1,35 +1,25 @@
-#!/usr/bin/env bash
+#!/bin/bash -e
 
-#Create tar.gz archive with all .py, .html and .htm files within the repo and list all files for fun
 if [[ -f ".circleci/debuglog" ]]; then
 	set -x
 fi
 
-WORKINGDIR="${CIRCLE_WORKING_DIRECTORY}"
-REPONAME="${CIRCLE_PROJECT_REPONAME}"
+mkdir -p /tmp/archives
 
-if [[ -z "$WORKINGDIR" ]]
-then
-      echo "no workdir for ya"
-      exit 1
-fi
+cd "${CIRCLE_WORKING_DIRECTORY}" || echo "no circle_working_directory defined"
 
-if [[ -z "$REPONAME" ]]
-then
-      echo "no reponame for ya"
-      exit 1
-fi
+for filename in $(find . \( -name "*.py" -o -name "*.html" -o -name "*.htm" -o -name "Pipfile.lock" )\); do
+	print "${filename}" > "${CIRCLE_PROJECT_REPONAME}.txt"
+done
 
-mkdir -p /tmp/archives &&
-cd "$WORKINGDIR" || echo "no circle_working_directory defined" &&
-print "$(find . \( -name "*.py" -o -name "*.html" -o -name "*.htm" -o -name "Pipfile.lock" \))" > "$REPONAME.txt" &&
-tar czf "$REPONAME.tar.gz" -T "$REPONAME.txt" &&
-rm -f "$REPONAME.txt" &&
-mv "$REPONAME.tar.gz" /tmp/archives/
-exit 1
+tar czf "${CIRCLE_PROJECT_REPONAME}.tar.gz" -T "${CIRCLE_PROJECT_REPONAME}.txt"
 
-export ARTIFACT="$REPONAME.tar.gz"
-export ARTIFACT_ZIP_PATH="/tmp/archives/$ARTIFACT"
+rm -f "${CIRCLE_PROJECT_REPONAME}.txt"
+
+mv "${CIRCLE_PROJECT_REPONAME}.tar.gz" /tmp/archives
+
+export ARTIFACT="${CIRCLE_PROJECT_REPONAME}.tar.gz"
+export ARTIFACT_ZIP_PATH="/tmp/archives/${CIRCLE_PROJECT_REPONAME}.tar.gz"
 
 
 
