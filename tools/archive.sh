@@ -35,8 +35,6 @@ mv "$REPONAME.tar.gz" /tmp/archives/;
 ARTIFACT="$REPONAME.tar.gz"
 ARTIFACT_ZIP_PATH="/tmp/archives/$ARTIFACT"
 
-export ARTIFACT
-export ARTIFACT_ZIP_PATH
 
 echo "TEMP_DIR: $TEMP_DIR"
 echo "ARTIFACT: $ARTIFACT"
