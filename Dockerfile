@@ -29,7 +29,7 @@ RUN apt-get update \
 	&& pip install --upgrade awscli \
 	&& pip install pipenv \
 	&& pip install nose \
-	&& python -m pip install psycopg2-binary \
+	&& python -m pip install psycopg2-binary
 #    && echo "deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list \
 #    && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
 #    && apt-get update \
