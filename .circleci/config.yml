@@ -1,6 +1,13 @@
 orbs:
   aws-ecr: circleci/aws-ecr@8.1.2
 version: 2.1
+parameters:
+  alpine-version:
+    type: string
+    default: "3.15.0"
+  image:
+    type: string
+    default: cimg/base:current
 workflows:
   build_and_push_image:
     jobs:
