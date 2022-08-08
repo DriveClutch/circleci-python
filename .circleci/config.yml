@@ -1,5 +1,5 @@
 orbs:
-  aws-ecr: circleci/aws-ecr@8.1.2
+  aws-ecr: circleci/aws-ecr@7.3.0
 version: 2.1
 parameters:
   alpine-version:
